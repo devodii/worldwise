@@ -1,10 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-import "./index.css";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
 
-ReactDOM.createRoot(document.getElementById("worldwise-app")).render(
+ReactDOM.createRoot(document.getElementById('worldwise-app')).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
-);
+)
