@@ -1,12 +1,11 @@
-import { Link, NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom"
+import { Logo } from "./logo"
 import styles from "./navigation.module.css"
 
 export function Navigation() {
   return (
     <nav className={styles.nav}>
-      <div>
-        <Link to="/">Worldwse</Link>
-      </div>
+      <Logo />
 
       <ul>
         <li>
