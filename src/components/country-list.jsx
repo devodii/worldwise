@@ -6,7 +6,6 @@ import { Spinner } from "./spinner"
 
 export function CountryList({ cities, isLoading }) {
   if (isLoading) return <Spinner />
-  console.log({ cities })
 
   if (cities.length < 1)
     return (
@@ -20,8 +19,6 @@ export function CountryList({ cities, isLoading }) {
       return arr
     }
   }, [])
-
-  console.log({ countries })
 
   return (
     <ul className={styles.cityList}>

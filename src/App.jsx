@@ -1,5 +1,5 @@
 import * as React from "react"
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 
 import { Pricing } from "./pages/pricing"
 import { Product } from "./pages/product"
@@ -10,6 +10,7 @@ import { Login } from "./pages/login"
 import { CityList } from "./components/city-list"
 import { City } from "./components/city"
 import { CountryList } from "./components/country-list"
+import { Form } from "./components/form"
 
 const BASE_URL = "http://localhost:8000"
 
@@ -39,10 +40,7 @@ function App() {
       <Routes>
         <Route index element={<Homepage />} />
         <Route path="/app" element={<AppLayout />}>
-          <Route
-            index
-            element={<CityList cities={cities} isLoading={isLoading} />}
-          />
+          <Route index element={<Navigate replace to={"cities"} />} />
           <Route
             path="cities"
             element={<CityList cities={cities} isLoading={isLoading} />}
@@ -52,7 +50,7 @@ function App() {
             path="countries"
             element={<CountryList cities={cities} isLoading={isLoading} />}
           />
-          <Route path="form" element={<h2>Form component</h2>} />
+          <Route path="form" element={<Form />} />
         </Route>
         <Route path="/product" element={<Product />} />
         <Route path="/login" element={<Login />} />

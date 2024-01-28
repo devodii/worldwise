@@ -3,6 +3,8 @@
 import * as React from "react"
 
 import styles from "./form.module.css"
+import { Button } from "./button"
+import { useNavigate } from "react-router-dom"
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function convertToEmoji(countryCode) {
@@ -18,6 +20,8 @@ export function Form() {
   const [country, setCountry] = React.useState("")
   const [date, setDate] = React.useState(new Date())
   const [notes, setNotes] = React.useState("")
+
+  const navigate = useNavigate()
 
   return (
     <form className={styles.form}>
@@ -46,8 +50,16 @@ export function Form() {
       </div>
 
       <div className={styles.buttons}>
-        <button>Add</button>
-        <button>&larr; Back</button>
+        <Button>Add</Button>
+        <Button
+          type="back"
+          onClick={e => {
+            e.preventDefault()
+            navigate(-1)
+          }}
+        >
+          &larr; Back
+        </Button>
       </div>
     </form>
   )

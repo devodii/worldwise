@@ -1,4 +1,4 @@
-import * as React from "react"
+/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom"
 import styles from "./city-item.module.css"
 
@@ -10,11 +10,13 @@ const formatDate = date =>
   }).format(new Date(date))
 
 export function CityItem({ city }) {
-  const { cityName, emoji, date, id } = city
-
+  const { cityName, emoji, date, id, position } = city
   return (
     <li>
-      <Link className={styles.cityItem} to={`${id}`}>
+      <Link
+        className={styles.cityItem}
+        to={`${id}?lat=${position.lat}&lng=${position.lng}`}
+      >
         <span className={styles.emoji}>{emoji}</span>
         <h3 className={styles.name}>{cityName}</h3>
 

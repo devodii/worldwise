@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom"
+/* eslint-disable no-unused-vars */
+import { useParams, useSearchParams } from "react-router-dom"
 
 const formatDate = date =>
   new Intl.DateTimeFormat("en", {
@@ -20,6 +21,8 @@ export function City() {
   const { cityName, emoji, date, notes } = currentCity
 
   const { id } = useParams()
+
+  const [searchParams, setSearchParams] = useSearchParams()
 
   console.log({ location })
   return <h1>CITY! {id}</h1>
