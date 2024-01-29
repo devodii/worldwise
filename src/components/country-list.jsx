@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
+import { useCities } from "../contexts/cities-context"
 import { CountryItem } from "./country-item"
 import styles from "./country-list.module.css"
 import { Message } from "./message"
 import { Spinner } from "./spinner"
 
-export function CountryList({ cities, isLoading }) {
+export function CountryList() {
+  const { cities, isLoading } = useCities()
+
   if (isLoading) return <Spinner />
 
   if (cities.length < 1)

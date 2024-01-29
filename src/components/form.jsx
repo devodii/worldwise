@@ -5,6 +5,7 @@ import * as React from "react"
 import styles from "./form.module.css"
 import { Button } from "./button"
 import { useNavigate } from "react-router-dom"
+import { BackButton } from "./back-button"
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function convertToEmoji(countryCode) {
@@ -51,15 +52,7 @@ export function Form() {
 
       <div className={styles.buttons}>
         <Button>Add</Button>
-        <Button
-          type="back"
-          onClick={e => {
-            e.preventDefault()
-            navigate(-1)
-          }}
-        >
-          &larr; Back
-        </Button>
+        <BackButton />
       </div>
     </form>
   )

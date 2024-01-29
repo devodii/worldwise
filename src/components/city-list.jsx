@@ -3,8 +3,11 @@ import { CityItem } from "./city-item"
 import { Message } from "./message"
 import styles from "./city-list.module.css"
 import { Spinner } from "./spinner"
+import { useCities } from "../contexts/cities-context"
 
-export function CityList({ cities, isLoading }) {
+export function CityList() {
+  const { cities, isLoading } = useCities()
+
   if (isLoading) return <Spinner />
 
   if (cities.length < 1)
