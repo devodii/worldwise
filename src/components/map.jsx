@@ -10,9 +10,16 @@ import {
   useMap,
   useMapEvents,
 } from "react-leaflet"
+import { useGeolocation } from "../hooks/useGeolocation"
+import { Button } from "./button"
 
 export function Map() {
   const [searchParams] = useSearchParams()
+  const {
+    getPosition,
+    isLoading: isLoadingPosition,
+    position: geoLocationPosition,
+  } = useGeolocation()
 
   const mapLatitude = searchParams.get("lat") || 40
   const mapLongitude = searchParams.get("lng") || 0
@@ -30,8 +37,22 @@ export function Map() {
     updateView()
   }, [mapLatitude, mapLongitude])
 
+  React.useEffect(() => {
+    function main() {
+      if (geoLocationPosition) {
+        setMapPosition([geoLocationPosition.lat, geoLocationPosition.lng])
+      }
+    }
+    main()
+  }, [geoLocationPosition])
+
   return (
     <div className={styles.mapContainer}>
+      {!geoLocationPosition && (
+        <Button type="position" onClick={getPosition}>
+          {isLoadingPosition ? "Loading..." : "Use your position"}
+        </Button>
+      )}
       <MapContainer
         center={mapPosition}
         zoom={6}
@@ -60,7 +81,7 @@ export function Map() {
   )
 }
 
-// eslint-disable-next-line react/prop-types 
+// eslint-disable-next-line react/prop-types
 function ChangeCenter({ position }) {
   const map = useMap()
   map.setView(position)
@@ -70,5 +91,10 @@ function ChangeCenter({ position }) {
 
 function DetectClick() {
   const navigate = useNavigate()
-  useMapEvents({ click: () => navigate("form") })
+  useMapEvents({
+    click: e => {
+      console.log({ e })
+      navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`)
+    },
+  })
 }
