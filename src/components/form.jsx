@@ -5,6 +5,10 @@ import { Button } from "./button"
 import styles from "./form.module.css"
 import { useUrlPosition } from "../hooks/useUrlPosition"
 import { Message } from "./message"
+import DatePicker from "react-datepicker"
+
+import "react-datepicker/dist/react-datepicker.css"
+import { useCities } from "../contexts/cities-context"
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function convertToEmoji(countryCode) {
@@ -18,17 +22,21 @@ export function convertToEmoji(countryCode) {
 const BASE_URL = "https://api.bigdatacloud.net/data/reverse-geocode-client"
 export function Form() {
   const { latitude, longitude } = useUrlPosition()
+  const { createCity } = useCities()
+
   const [cityName, setCityName] = React.useState("")
   const [country, setCountry] = React.useState("")
   const [date, setDate] = React.useState(new Date())
   const [notes, setNotes] = React.useState("")
-  const [isLoadingGeoCoding, setIsLoadingGeoCoding] = React.useState(true)
+  const [_isLoadingGeoCoding, setIsLoadingGeoCoding] = React.useState(true)
   const [geoCodingError, setGeoCodingError] = React.useState("")
 
   const [emoji, setEmoji] = React.useState("")
 
   React.useEffect(() => {
     async function fetchCityData() {
+      if (!latitude || !longitude) return
+
       try {
         setIsLoadingGeoCoding(true)
         setGeoCodingError("")
@@ -59,14 +67,36 @@ export function Form() {
     fetchCityData()
   }, [latitude, longitude])
 
-  console.log({ geoCodingError })
+  function handleSubmit(e) {
+    e.preventDefault()
+
+    if (!cityName || !date) return
+
+    const newCity = {
+      cityName,
+      country,
+      emoji,
+      date,
+      notes,
+      position: {
+        lat: latitude,
+        lng: longitude,
+      },
+    }
+
+    createCity(newCity)
+  }
+
+  if (!latitude || !longitude) {
+    return <Message message="Start by clicking somewhere on the map" />
+  }
 
   if (geoCodingError) {
     return <Message message={geoCodingError} />
   }
 
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <input
@@ -79,7 +109,13 @@ export function Form() {
 
       <div className={styles.row}>
         <label htmlFor="date">When did you go to {cityName}?</label>
-        <input id="date" onChange={e => setDate(e.target.value)} value={date} />
+
+        <DatePicker
+          id="date"
+          onChange={date => setDate(date)}
+          selected={date}
+          dateFormat="dd/MM/yyyy"
+        />
       </div>
 
       <div className={styles.row}>
@@ -92,7 +128,7 @@ export function Form() {
       </div>
 
       <div className={styles.buttons}>
-        <Button>Add</Button>
+        <Button type="primary">Add</Button>
         <BackButton />
       </div>
     </form>

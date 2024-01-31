@@ -35,6 +35,30 @@
         "lng": 13.376933665713324
       },
       "id": 98443197
+    },
+    {
+      "id": "573f",
+      "cityName": "Lapai",
+      "country": "Nigeria",
+      "emoji": "🇳🇬",
+      "date": "2024-01-31T18:34:37.515Z",
+      "notes": "Great state",
+      "position": {
+        "lat": "9.018004089310821",
+        "lng": "6.664262008210581"
+      }
+    },
+    {
+      "id": "2c3e",
+      "cityName": "Alia",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2024-01-31T18:38:18.429Z",
+      "notes": "Great place too!",
+      "position": {
+        "lat": "39.38772487857968",
+        "lng": "-5.005261016052028"
+      }
     }
   ]
 }
