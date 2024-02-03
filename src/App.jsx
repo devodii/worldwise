@@ -12,6 +12,7 @@ import { Login } from "./pages/login"
 import { Pricing } from "./pages/pricing"
 import { Product } from "./pages/product"
 import { AuthProvider } from "./contexts/auth-context"
+import { ProtectedRoutes } from "./pages/protected-route"
 
 function App() {
   return (
@@ -20,7 +21,14 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route index element={<Homepage />} />
-            <Route path="/app" element={<AppLayout />}>
+            <Route
+              path="/app"
+              element={
+                <ProtectedRoutes>
+                  <AppLayout />
+                </ProtectedRoutes>
+              }
+            >
               <Route index element={<Navigate replace to={"cities"} />} />
               <Route path="cities" element={<CityList />} />
               <Route path="cities/:id" element={<City />} />
