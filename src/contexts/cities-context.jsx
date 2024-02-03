@@ -16,7 +16,12 @@ function reducer(state, action) {
       return { ...state, isLoading: false, cities: payload }
 
     case "city/created":
-      return { ...state, isLoading: false, cities: [...state.cities, payload] }
+      return {
+        ...state,
+        isLoading: false,
+        cities: [...state.cities, payload],
+        currentCity: payload,
+      }
 
     case "city/deleted":
       return {
@@ -46,7 +51,7 @@ const initialState = {
 
 function CitiesProvider({ children }) {
   const [state, dispatch] = React.useReducer(reducer, initialState)
-  const { isLoading, cities, currentCity } = state
+  const { isLoading, cities, currentCity, error } = state
 
   React.useEffect(() => {
     async function fetchCities() {
@@ -68,6 +73,8 @@ function CitiesProvider({ children }) {
   }, [])
 
   async function getCity(id) {
+    if (id === currentCity.id) return
+
     dispatch({ type: "loading" })
 
     try {
@@ -122,6 +129,7 @@ function CitiesProvider({ children }) {
     <CitiesContext.Provider
       value={{
         cities,
+        error,
         isLoading,
         currentCity,
         getCity,

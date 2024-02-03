@@ -6,7 +6,7 @@ export function Button({ children, onClick, type = "primary", ...props }) {
   return (
     <button
       onClick={onClick}
-      className={`${styles.btn} ${styles[type]}`}
+      className={`${styles.btn} ${styles[type] ?? ""}`}
       {...props}
     >
       {children}
