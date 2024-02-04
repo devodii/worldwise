@@ -5,7 +5,7 @@ import { Button } from "../components/button"
 import { useAuth } from "../contexts/auth-context"
 import { useNavigate } from "react-router-dom"
 
-export function Login() {
+export default function Login() {
   const [email, setEmail] = React.useState("jack@example.com")
   const [password, setPassword] = React.useState("qwerty")
 

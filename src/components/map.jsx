@@ -14,7 +14,7 @@ import { useUrlPosition } from "../hooks/useUrlPosition"
 import { Button } from "./button"
 import styles from "./map.module.css"
 
-export function Map() {
+export default function Map() {
   const {
     getPosition,
     isLoading: isLoadingPosition,

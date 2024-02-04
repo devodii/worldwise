@@ -2,7 +2,7 @@
 import { Navigation } from "../components/navigation"
 import styles from "./product.module.css"
 
-export function Pricing() {
+export default function Pricing() {
   return (
     <main className={styles.product}>
       <Navigation />

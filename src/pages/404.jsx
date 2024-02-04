@@ -1,4 +1,4 @@
-export function FourOhFour() {
+export default function FourOhFour() {
   return (
     <div>
       <h1 style={{ color: "black" }}>Page not found 😢</h1>

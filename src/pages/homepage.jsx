@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import styles from "./homepage.module.css"
 import { Navigation } from "../components/navigation"
 
-export function Homepage() {
+export default function Homepage() {
   return (
     <main className={styles.homepage}>
       <Navigation />
