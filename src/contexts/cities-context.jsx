@@ -72,22 +72,25 @@ function CitiesProvider({ children }) {
     fetchCities()
   }, [])
 
-  async function getCity(id) {
-    if (id === currentCity.id) return
+  const getCity = React.useCallback(
+    async function getCity(id) {
+      if (id === currentCity.id) return
 
-    dispatch({ type: "loading" })
+      dispatch({ type: "loading" })
 
-    try {
-      const res = await fetch(`${BASE_URL}/cities/${id}`)
-      const city = await res.json()
-      dispatch({ type: "city/loaded", payload: city })
-    } catch (error) {
-      dispatch({
-        type: "rejected",
-        payload: "There was an error loading this city...",
-      })
-    }
-  }
+      try {
+        const res = await fetch(`${BASE_URL}/cities/${id}`)
+        const city = await res.json()
+        dispatch({ type: "city/loaded", payload: city })
+      } catch (error) {
+        dispatch({
+          type: "rejected",
+          payload: "There was an error loading this city...",
+        })
+      }
+    },
+    [currentCity.id]
+  )
 
   async function createCity(newCity) {
     dispatch({ type: "loading" })

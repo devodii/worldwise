@@ -28,7 +28,7 @@ export function City() {
       getCity(id)
     }
     mounted()
-  }, [id])
+  }, [id, getCity])
 
   // return <h1>CITY! {id}</h1>
 
